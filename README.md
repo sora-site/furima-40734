@@ -11,9 +11,7 @@
 | kanji_name_mei     | string | null: false                    |
 | kana_name_sei      | string | null: false                    |
 | kana_name_mei      | string | null: false                    |
-| birth_year         | int    | null: false                    |
-| birth_month        | int    | null: false                    |
-| birth_day          | int    | null: false                    |
+| birthday           | date   | null: false                    |
 
 ### Association
 
@@ -59,11 +57,11 @@
 | Column                 | Type       | Options                        |
 | ---------------------  | ---------- | ------------------------------ |
 | post_code              | string     | null: false                    |
-| address_prefectures    | string     | null: false, unique: true      |
+| address_prefectures    | string     | null: false                    |
 | address_municipalities | string     | null: false                    |
 | address_street         | string     | null: false                    |
 | address_building       | string     |                                |
-| phone_number           | int        | null: false                    |
+| phone_number           | string     | null: false                    |
 | purchase               | references | null: false, foreign_key: true |
 
 ### Association
