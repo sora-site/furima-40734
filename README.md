@@ -26,10 +26,10 @@
 | item_name          | string     | null: false                    |
 | item_description   | text       | null: false                    |
 | category_id        | integer    | null: false                    |
-| price              | int        | null: false                    |
+| price              | integer    | null: false                    |
 | condition_id       | integer    | null: false                    |
 | shipping_cost_id   | integer    | null: false                    |
-| prefectures_id     | integer    | null: false                    |
+| prefecture_id      | integer    | null: false                    |
 | shipping_date_id   | integer    | null: false                    |
 | user               | references | null: false, foreign_key: true |
 
@@ -57,7 +57,7 @@
 | Column                 | Type       | Options                        |
 | ---------------------  | ---------- | ------------------------------ |
 | post_code              | string     | null: false                    |
-| prefectures_id         | integer    | null: false                    |
+| prefecture_id          | integer    | null: false                    |
 | address_municipalities | string     | null: false                    |
 | address_street         | string     | null: false                    |
 | address_building       | string     |                                |
