@@ -51,6 +51,24 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include('Password is too short (minimum is 6 characters)')
       end
+      it 'パスワードに全角文字（漢字）を含んだ場合、登録できない' do
+        @user.password = '漢字test01'
+        @user.password_confirmation = @user.password
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is invalid')
+      end
+      it 'パスワードに全角文字（ひらがな）を含んだ場合、登録できない' do
+        @user.password = 'かなtest01'
+        @user.password_confirmation = @user.password
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is invalid')
+      end
+      it 'パスワードに全角文字（数字）を含んだ場合、登録できない' do
+        @user.password = '１２test'
+        @user.password_confirmation = @user.password
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Password is invalid')
+      end
       it 'パスワードが半角英数字混合での入力でない（英字のみ）場合は登録できない' do
         @user.password = 'pstest'
         @user.password_confirmation = @user.password
@@ -131,32 +149,37 @@ RSpec.describe User, type: :model do
       it 'カナ氏名（氏）が全角漢字を含む場合は登録できない' do
         @user.kana_name_sei = 'カナ漢'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Kana name sei is invalid")
+        expect(@user.errors.full_messages).to include('Kana name sei is invalid')
       end
       it 'カナ氏名（氏）が全角ひらがなを含む場合は登録できない' do
         @user.kana_name_sei = 'カナあ'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Kana name sei is invalid")
+        expect(@user.errors.full_messages).to include('Kana name sei is invalid')
+      end
+      it 'カナ氏名（氏）が全角数字を含む場合は登録できない' do
+        @user.kana_name_sei = 'カナ１'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Kana name sei is invalid')
       end
       it 'カナ氏名（氏）が半角文字（カナ）場合は登録できない' do
         @user.kana_name_sei = 'カナｶﾅ'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Kana name sei is invalid")
+        expect(@user.errors.full_messages).to include('Kana name sei is invalid')
       end
       it 'カナ氏名（氏）が半角文字（英字）を場合は登録できない' do
         @user.kana_name_sei = 'カナa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Kana name sei is invalid")
+        expect(@user.errors.full_messages).to include('Kana name sei is invalid')
       end
       it 'カナ氏名（氏）が半角文字（数字）を含む場合は登録できない' do
         @user.kana_name_sei = 'カナ1'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Kana name sei is invalid")
+        expect(@user.errors.full_messages).to include('Kana name sei is invalid')
       end
       it 'カナ氏名（氏）が半角文字（記号）を含む場合は登録できない' do
         @user.kana_name_sei = 'カナ@'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Kana name sei is invalid")
+        expect(@user.errors.full_messages).to include('Kana name sei is invalid')
       end
       it 'カナ氏名（名）がブランクの場合は登録できない' do
         @user.kana_name_mei = ''
@@ -166,32 +189,37 @@ RSpec.describe User, type: :model do
       it 'カナ氏名（名）が全角漢字を含む場合は登録できない' do
         @user.kana_name_mei = 'カナ漢'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Kana name mei is invalid")
+        expect(@user.errors.full_messages).to include('Kana name mei is invalid')
       end
       it 'カナ氏名（名）が全角ひらがなを含む場合は登録できない' do
         @user.kana_name_mei = 'カナあ'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Kana name mei is invalid")
+        expect(@user.errors.full_messages).to include('Kana name mei is invalid')
+      end
+      it 'カナ氏名（名）が全角数字を含む場合は登録できない' do
+        @user.kana_name_mei = 'カナ１'
+        @user.valid?
+        expect(@user.errors.full_messages).to include('Kana name mei is invalid')
       end
       it 'カナ氏名（名）が半角文字（カナ）を含む場合は登録できない' do
         @user.kana_name_mei = 'カナｶﾅ'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Kana name mei is invalid")
+        expect(@user.errors.full_messages).to include('Kana name mei is invalid')
       end
       it 'カナ氏名（名）が半角文字（英字）を含む場合は登録できない' do
         @user.kana_name_mei = 'カナa'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Kana name mei is invalid")
+        expect(@user.errors.full_messages).to include('Kana name mei is invalid')
       end
       it 'カナ氏名（名）が半角文字（数字）を含む場合は登録できない' do
         @user.kana_name_mei = 'カナ1'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Kana name mei is invalid")
+        expect(@user.errors.full_messages).to include('Kana name mei is invalid')
       end
       it 'カナ氏名（名）が半角文字（記号）を含む場合は登録できない' do
         @user.kana_name_mei = 'カナ@'
         @user.valid?
-        expect(@user.errors.full_messages).to include("Kana name mei is invalid")
+        expect(@user.errors.full_messages).to include('Kana name mei is invalid')
       end
       it '生年月日がブランクの場合は登録できない' do
         @user.birthday = ''

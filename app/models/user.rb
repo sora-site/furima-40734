@@ -7,8 +7,8 @@ class User < ApplicationRecord
   # has_many :comments
 
   VALID_PASSWORD_REGEX = /\A(?=.*[a-z]\d)[a-z\d]{6,128}\z/ # 文字数はデフォルト
-  VALID_KANJI_NAME_REGEX = /\A[ぁ-んァ-ヶ一-龥々]+\z/
-  VALID_KANA_NAME_REGEX = /\A[ァ-ヶ一]+\z/
+  VALID_KANJI_NAME_REGEX = /\A[ぁ-んァ-ヶー-龥々]+\z/
+  VALID_KANA_NAME_REGEX = /\A[ァ-ヶー]+\z/
 
   validates :password, format: { with: VALID_PASSWORD_REGEX }
   validates :nickname, presence: true
