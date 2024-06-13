@@ -105,7 +105,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Category must be other than 1')
       end
-      it 'カテゴリーidが11より大きいの場合は登録できない' do
+      it 'カテゴリーidが11より大きい場合は登録できない' do
         @item.category_id = 12
         @item.valid?
         expect(@item.errors.full_messages).to include('Category must be less than 12')
@@ -115,7 +115,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
-      it '値段が300円未満場合は登録できない' do
+      it '値段が300円未満の場合は登録できない' do
         @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
@@ -195,7 +195,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include('Prefecture must be other than 1')
       end
-      it '都道府県の負担のidが48より大きい場合は登録できない' do
+      it '都道府県のidが48より大きい場合は登録できない' do
         @item.prefecture_id = 49
         @item.valid?
         expect(@item.errors.full_messages).to include('Prefecture must be less than 49')
