@@ -7,8 +7,8 @@ class Item < ApplicationRecord
   VALID_PRICE_REGEX = /\A[0-9]+\z/
 
   # 必須バリデーション
-  validates :item_name, presence: true
-  validates :item_description, presence: true
+  validates :item_name, presence: true, length: { maximum: 40 }
+  validates :item_description, presence: true, length: { maximum: 1000 }
   validates :category_id, presence: true
   validates :price, presence: true, format: { with: VALID_PRICE_REGEX },
                     numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 }

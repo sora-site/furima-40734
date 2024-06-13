@@ -1,4 +1,5 @@
 require 'rails_helper'
+require 'faker'
 
 RSpec.describe Item, type: :model do
   before do
@@ -8,6 +9,14 @@ RSpec.describe Item, type: :model do
   describe '商品出品機能' do
     context '商品が出品できる場合' do
       it '必要な情報を適切に入力されていれば登録できる' do
+        expect(@item).to be_valid
+      end
+      it '商品名が40文字の場合は登録できる' do
+        @item.item_name = Faker::Base.regexify('[aあ]{40}')
+        expect(@item).to be_valid
+      end
+      it '商品の説明が1000文字の場合は登録できる' do
+        @item.item_description = Faker::Base.regexify('[aあ]{1000}')
         expect(@item).to be_valid
       end
       it '値段が300円の場合は登録できる' do
@@ -71,10 +80,20 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Item name can't be blank")
       end
+      it '商品名が40文字より多い場合は登録できない' do
+        @item.item_name = Faker::Base.regexify('[aあ]{41}')
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Item name is too long (maximum is 40 characters)')
+      end
       it '商品の説明が存在しない場合は登録できない' do
         @item.item_description = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Item description can't be blank")
+      end
+      it '商品の説明が1000文字より多い場合は登録できない' do
+        @item.item_description = Faker::Base.regexify('[aあ]{1001}')
+        @item.valid?
+        expect(@item.errors.full_messages).to include('Item description is too long (maximum is 1000 characters)')
       end
       it 'カテゴリーの情報が存在しない場合は登録できない' do
         @item.category_id = ''
