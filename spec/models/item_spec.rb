@@ -55,7 +55,7 @@ RSpec.describe Item, type: :model do
         @item.prefecture_id = 2
         expect(@item).to be_valid
       end
-      it '都道府県の負担のidが48の場合は登録できる' do
+      it '都道府県のidが48の場合は登録できる' do
         @item.prefecture_id = 48
         expect(@item).to be_valid
       end
@@ -115,7 +115,7 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price can't be blank")
       end
-      it '値段が３００円未満場合は登録できない' do
+      it '値段が300円未満場合は登録できない' do
         @item.price = 299
         @item.valid?
         expect(@item.errors.full_messages).to include('Price must be greater than or equal to 300')
