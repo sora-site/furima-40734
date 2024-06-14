@@ -17,13 +17,19 @@ class Item < ApplicationRecord
   validates :prefecture_id, presence: true
   validates :shipping_date_id, presence: true
   validates :image, presence: true
-  # ジャンルの選択が「---」の時は保存できないようにする／設定したIDより大きい時は保存できないようにする。（activehash）
+
+  # ジャンルの選択が「---」の時は保存できないようにする／設定したIDより大きい時は保存できないようにする。（Activehash）
   validates :category_id, numericality: { other_than: 1, less_than: 12 }
   validates :condition_id, numericality: { other_than: 1, less_than: 8 }
   validates :shipping_cost_id, numericality: { other_than: 1, less_than: 4 }
   validates :prefecture_id, numericality: { other_than: 1, less_than: 49 }
   validates :shipping_date_id, numericality: { other_than: 1, less_than: 5 }
 
+  # Activehashアソシエーション
   extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :category
+  belongs_to :condition
+  belongs_to :shiping_cost
   belongs_to :prefecture
+  belongs_to :shiping_date
 end
