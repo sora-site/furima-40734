@@ -21,6 +21,7 @@ class Item < ApplicationRecord
     validates :prefecture_id, numericality: { other_than: 1, less_than: 49 }
     validates :shipping_date_id, numericality: { other_than: 1, less_than: 5 }
   end
+
   # Activehashアソシエーション
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :category

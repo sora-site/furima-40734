@@ -1,22 +1,25 @@
 class OrdersController < ApplicationController
   def index
     @item = Item.find(params[:item_id])
+    @order_address = OrderAddress.new
   end
 
   def create
-    @order = Order.create(order_params)
-    Address.create(address_params)
-    redirect_to root_path
+    @order_address = OrderAddress.new(order_params)
+    if @order_address.valid?
+      @order_address.save
+      redirect_to root_path
+    else
+      @item = Item.find(params[:item_id])
+      render :index, status: :unprocessable_entity
+    end
   end
 
   private
 
   def order_params
-    params.permit.merge(user_id: current_user.id, item_id: params[:item_id])
-  end
-
-  def address_params
-    params.permit(:post_code, :prefecture_id, :address_municipalities, :address_street, :address_building,
-                  :phone_number).merge(order_id: @order.id)
+    params.require(:order_address).permit(:post_code, :prefecture_id, :address_municipalities, :address_street, :address_building, :phone_number).merge(
+      user_id: current_user.id, item_id: params[:item_id]
+    )
   end
 end
