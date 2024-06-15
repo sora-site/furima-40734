@@ -1,5 +1,5 @@
 class ItemsController < ApplicationController
-  before_action :move_to_index, only: [:update, :edit]
+  before_action :move_to_index, only: [:update, :edit, :destroy]
   before_action :set_item, only: [:show, :edit, :update]
 
   def index
@@ -36,6 +36,12 @@ class ItemsController < ApplicationController
     else
       render :edit, status: :unprocessable_entity
     end
+  end
+
+  def destroy
+    item = Item.find(params[:id])
+    item.destroy
+    redirect_to root_path
   end
 
   private
