@@ -3,7 +3,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :items
-  # has_many :purchases
+  has_many :orders
   # has_many :comments
 
   VALID_PASSWORD_REGEX = /\A(?=.*[a-z]\d)[a-z\d]{6,128}\z/ # 文字数はデフォルト
