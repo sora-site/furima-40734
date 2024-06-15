@@ -15,7 +15,7 @@ class OrderAddress
   end
 
   def save
-    # 寄付情報を保存し、変数donationに代入する
+    # 寄付情報を保存し、変数orderに代入する
     order = Order.create(item_id:, user_id:)
     # 住所を保存する
     Address.create(post_code:, prefecture_id:, address_municipalities:,
