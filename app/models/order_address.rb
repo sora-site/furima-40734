@@ -1,6 +1,10 @@
 class OrderAddress
   include ActiveModel::Model
-  attr_accessor :post_code, :prefecture_id, :address_municipalities, :address_street, :address_building, :phone_number, :user_id,
+  attr_accessor :post_code,
+                :prefecture_id,
+                :address_municipalities,
+                :address_street, :address_building,
+                :phone_number, :user_id,
                 :item_id, :token
 
   # バリデーション

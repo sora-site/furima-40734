@@ -1,9 +1,9 @@
 class OrdersController < ApplicationController
   before_action :move_to_session
   before_action :move_to_index
+  before_action :set_item
 
   def index
-    @item = Item.find(params[:item_id])
     @order_address = OrderAddress.new
     # PAY.JP公開鍵情報
     gon.public_key = ENV['PAYJP_PUBLIC_KEY']
@@ -17,7 +17,6 @@ class OrdersController < ApplicationController
       @order_address.save
       redirect_to root_path
     else
-      @item = Item.find(params[:item_id])
       gon.public_key = ENV['PAYJP_PUBLIC_KEY']
       render :index, status: :unprocessable_entity
     end
@@ -37,6 +36,10 @@ class OrdersController < ApplicationController
     return unless current_user.id == item.user_id || !order.nil?
 
     redirect_to root_path
+  end
+
+  def set_item
+    @item = Item.find(params[:item_id])
   end
 
   def order_params
