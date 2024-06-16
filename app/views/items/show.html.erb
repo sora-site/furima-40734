@@ -30,7 +30,7 @@
       <%= link_to "削除", item_path, data: {turbo_method: :delete}, class:"item-destroy" %>
      <% else %>
       <% if @item.order == nil || @item.order.id == nil %>
-      <%= link_to "購入画面に進む", item_orders_path(@item.id) ,class:"item-red-btn"%>
+      <%= link_to "購入画面に進む", item_orders_path(@item.id) , data: { turbo: false }, class:"item-red-btn"%>
       <% end %>
      <% end %>
     <% end %>
