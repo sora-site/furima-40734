@@ -4,7 +4,6 @@ class User < ApplicationRecord
 
   has_many :items
   has_many :orders
-  # has_many :comments
 
   VALID_PASSWORD_REGEX = /\A(?=.*[a-z]\d)[a-z\d]{6,128}\z/ # 文字数はデフォルト
   VALID_KANJI_NAME_REGEX = /\A[ぁ-んァ-ヶー-龥々]+\z/
