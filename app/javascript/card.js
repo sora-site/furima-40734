@@ -29,7 +29,6 @@ const pay = () => {
         const tokenObj = `<input value=${token} name='token' type="hidden">`;
         // フォームの中に作成したinput要素を追加
         renderDom.insertAdjacentHTML("beforeend", tokenObj);
-        debugger;
       }
       // token以外のクレジットカード情報を削除（カード番号・有効期限・CVC）
       numberElement.clear();
