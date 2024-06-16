@@ -1,4 +1,5 @@
 class OrdersController < ApplicationController
+  before_action :move_to_session
   before_action :move_to_index
 
   def index
@@ -24,10 +25,16 @@ class OrdersController < ApplicationController
 
   private
 
+  def move_to_session
+    return if user_signed_in?
+
+    redirect_to new_user_session_path
+  end
+
   def move_to_index
     item = Item.find(params[:item_id])
     order = Order.find(params[:item_id])
-    return unless !user_signed_in? || current_user.id == item.user_id || !order.nil?
+    return unless current_user.id == item.user_id || !order.nil?
 
     redirect_to root_path
   end
