@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :move_to_session
-  before_action :move_to_index
+  before_action :move_to_root
   before_action :set_item
 
   def index
@@ -30,9 +30,12 @@ class OrdersController < ApplicationController
     redirect_to new_user_session_path
   end
 
-  def move_to_index
+  def move_to_root
     item = Item.find(params[:item_id])
-    return unless current_user.id == item.user_id || Order.where(id: params[:item_id]).exists?
+    unless current_user.id == item.user_id || Order.where(id: params[:item_id]).exists? ||
+           (current_user.id != item.user_id && Order.where(id: params[:item_id]).exists?)
+      return
+    end
 
     redirect_to root_path
   end
