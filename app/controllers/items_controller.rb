@@ -25,7 +25,7 @@ class ItemsController < ApplicationController
 
   def edit
     return unless @item.user_id != current_user.id || Order.where(id: params[:item_id]).exists? ||
-                  (current_user.id == item.user_id && Order.where(id: params[:item_id]).exists?)
+                  (@item.user_id == current_user.id && Order.where(id: params[:item_id]).exists?)
 
     redirect_to root_path
   end
