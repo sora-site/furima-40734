@@ -5,7 +5,7 @@ function post() {
   priceInput.addEventListener("input", () => {
     const inputValue = priceInput.value;
     const tax = Math.floor(inputValue * 0.1);
-    const profit = Math.floor(inputValue * 0.9);
+    const profit = Math.floor(inputValue - tax);
 
     taxOutput.innerHTML = `<span id='add-tax-price'>${tax}</span>`;
     profitInput.innerHTML = `<span id='profit'>${profit}</span>`;
